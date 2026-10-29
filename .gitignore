@@ -1,0 +1,12 @@
+/.cache/
+/dist/
+/release/
+/node_modules/
+/ui/vendor/
+**/__pycache__/
+*.pyc
+*.pyo
+.env
+.env.*
+!.env.example
+*.paper.json

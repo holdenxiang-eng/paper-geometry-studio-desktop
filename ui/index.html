@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>截图组卷</title><link rel="stylesheet" href="app.css"><link rel="stylesheet" href="paper-screen.css">
+  <link rel="stylesheet" href="vendor/katex.min.css"><link rel="stylesheet" href="vendor/jsxgraph.css">
+</head>
+<body>
+  <header class="app-bar">
+    <div class="brand"><span class="brand-icon">▤</span><div><strong>截图组卷</strong><small>把截图整理成可编辑试卷</small></div></div>
+    <div class="document-actions"><button id="import-images" class="primary">＋ 导入截图</button><button id="open-project">打开工程</button><button id="save-project">保存工程</button></div>
+    <div class="service"><i id="service-light"></i><span id="service-message" role="status">界面已就绪</span><button id="retry-service" hidden>重试</button></div>
+  </header>
+  <main class="workspace">
+    <aside class="source-sidebar">
+      <section class="source-section"><div class="section-title"><h2>截图素材</h2><span id="source-count">0 张</span></div>
+        <button id="drop-zone" class="drop-zone">拖入多张截图，或点击导入<small>也可以直接粘贴截图 Ctrl V</small></button>
+        <div class="source-options"><label><input id="auto-recognize" type="checkbox" checked> 自动识别</label><button id="recognize-all" class="text-button">识别待处理</button><button id="cancel-all" class="text-button" hidden>取消全部</button></div>
+        <div id="source-list" class="source-list"></div>
+      </section>
+      <section class="outline-section"><div class="section-title"><h2>题目目录</h2><button id="add-question" class="text-button">＋ 添加题目</button></div><div id="question-list"></div></section>
+    </aside>
+    <section class="editor">
+      <div class="editor-toolbar"><div><button id="undo" title="撤销">↶</button><button id="redo" title="重做">↷</button><span id="document-count">0 道题</span></div><div><button id="new-project" class="text-button">新建试卷</button><button id="preview-toggle">打印预览</button></div></div>
+      <div class="paper-title-editor"><label for="document-title">试卷标题</label><input id="document-title" value="数学练习" autocomplete="off"></div>
+      <div id="paper-questions" class="paper-stack exam-document"></div>
+      <div id="empty-state" class="empty-state"><span>▧</span><h1>从一张截图开始</h1><p>导入、拖入或粘贴截图，题目将按原图结构整理到纸面。<br>可以同时处理多张，识别期间也能继续编辑。</p></div>
+    </section>
+    <aside class="inspector">
+      <div id="selection-hint" class="selection-hint">点选题目校对文字<br>点选图形拖动顶点</div>
+      <section id="question-inspector" hidden><div class="section-title"><h2>题目校对</h2><button id="show-source" class="text-button">对照原图</button></div>
+        <label>题型<select id="question-category"><option>选择题</option><option>填空题</option><option>判断题</option><option>应用题</option></select></label>
+        <label>答题空白 <span class="unit">mm</span><input id="answer-space" type="number" min="0" max="96" step="1"></label>
+        <div id="block-editors"></div><button id="add-text-block" class="text-button">＋ 添加一行</button><button id="add-figure" class="text-button">＋ 添加图形</button>
+        <div class="question-actions"><button id="question-up">↑ 上移</button><button id="question-down">↓ 下移</button><button id="delete-question" class="danger">删除题目</button></div>
+      </section>
+      <section id="figure-inspector" hidden><div class="section-title"><h2>图形调整</h2></div>
+        <label>图号<input id="figure-caption" placeholder="原图没有图号时留空"></label>
+        <label>移到其他题目<select id="figure-owner"></select></label>
+        <label>顶点<select id="point-select"></select></label>
+        <label>字母<input id="point-label" maxlength="10"></label>
+        <div class="two-inputs"><label>X<input id="point-x" type="number" step="0.05"></label><label>Y<input id="point-y" type="number" step="0.05"></label></div>
+        <div class="two-inputs"><label>标注横向偏移<input id="label-x" type="number" step="1"></label><label>标注纵向偏移<input id="label-y" type="number" step="1"></label></div>
+        <label>线条粗细<input id="line-width" type="range" min="1" max="5" step="0.25"></label>
+        <div class="figure-tools"><button data-tool="move">拖动</button><button data-tool="point">点</button><button data-tool="segment">线段</button><button data-tool="line">直线</button><button data-tool="circle">圆</button><button data-tool="perpendicular">垂足</button><button data-tool="midpoint">中点</button><button data-tool="delete">删除</button></div>
+        <button id="restore-figure-layout" class="text-button">恢复原图位置</button><button id="delete-figure" class="text-button danger">删除此图</button>
+      </section>
+      <section class="export-section"><h2>确认与导出</h2><p id="confirmation-message">校对题目、图形和布局后确认整卷。</p><button id="confirm-layout" class="primary">确认当前排版</button><div class="export-buttons"><button id="export-word" disabled>Word</button><button id="export-pdf" disabled>PDF</button></div></section>
+    </aside>
+  </main>
+  <input id="image-input" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden>
+  <dialog id="source-dialog"><div class="dialog-title"><strong id="source-dialog-title">原截图</strong><button id="close-source-dialog">关闭</button></div><img id="source-dialog-image" alt="原截图"></dialog>
+  <div id="toast" role="status" hidden></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

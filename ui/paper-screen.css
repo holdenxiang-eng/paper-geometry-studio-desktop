@@ -1,0 +1,17 @@
+.paper-stack { width: min(100%, 794px); margin: auto; background: transparent; }
+.paper-page { display: flex; flex-direction: column; padding: 20mm; }
+.paper-page-header { flex: none; }
+.paper-page-header h1 { margin: 0 0 7mm; }
+.paper-meta { display: none; }
+.paper-page-body { flex: 1; min-height: 0; height: 0; }
+.paper-footer { flex: none; height: 4mm; margin-top: 2mm; position: relative; }
+.paper-page-number { bottom: 0; }
+.paper-category-heading { font-size: 13pt; margin: 4mm 0 2mm; }
+.paper-category-heading:first-child { margin-top: 0; }
+.exam-document .question.selected { outline: 1px solid #4b93dc80; outline-offset: 5px; }
+.preview-mode .question.selected { outline: 0; }
+.paper-overflow-note { font: 10px/1.5 sans-serif; color: #998566; }
+.figure-stage-block { margin: 1mm 0; break-inside: avoid; }
+.figure-frame:not(.has-caption) .figure-frame-header { top: -12px !important; bottom: auto !important; height: 12px !important; opacity: 0; }
+.figure-frame:not(.has-caption):hover .figure-frame-header { opacity: 1; }
+.figure-frame.has-caption .figure-frame-header { background: #fff !important; text-align: center; font: 11pt/1.3 SimSun, serif !important; }
